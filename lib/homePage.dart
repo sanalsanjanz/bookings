@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Color(0xffBA94D1),
         ),

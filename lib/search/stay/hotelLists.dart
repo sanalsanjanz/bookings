@@ -1,42 +1,26 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:bookmyroom/constants/constants.dart';
+import 'package:bookmyroom/search/stay/hotelDetails.dart';
+import 'package:bookmyroom/widgets/hotelCard.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
 class HotelList extends StatefulWidget {
   HotelList({super.key, required this.city, required this.image});
   String city;
   String image;
+
   @override
   State<HotelList> createState() => _HotelListState();
 }
 
 class _HotelListState extends State<HotelList> {
-  final items = [
-    HotelSlideItems(
-        imageLink:
-            'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg',
-        hotelName: 'HiTon'),
-    HotelSlideItems(
-        imageLink:
-            'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg',
-        hotelName: 'ABV Hotel'),
-    HotelSlideItems(
-        imageLink:
-            'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg',
-        hotelName: 'Mariya'),
-    HotelSlideItems(
-        imageLink:
-            'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg',
-        hotelName: 'TOP Stay'),
-    HotelSlideItems(
-        imageLink:
-            'https://s3.india.com/travel/wp-content/uploads/2015/05/Main10.jpg',
-        hotelName: 'ROOFTO')
-  ];
+  double rating = 0.0;
 
   int currentIndex = 0;
 
@@ -111,6 +95,10 @@ class _HotelListState extends State<HotelList> {
               scrollDirection: Axis.horizontal,
               children: [
                 HotelCard(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (ctx) => const HotelDetails()));
+                  },
                   name: 'Barza',
                   image: 'assets/1.jpg',
                 ),
@@ -138,106 +126,96 @@ class _HotelListState extends State<HotelList> {
               ],
             ),
           ),
-          const Divider(),
           Expanded(
-              child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) => const Card(
-                        child: ListTile(),
-                      )))
-        ],
-      ),
-    );
-  }
-}
-
-class HotelCard extends StatelessWidget {
-  HotelCard({super.key, required this.image, required this.name});
-  String image;
-  String name;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        // borderRadius: BorderRadius.circular(10),
-        color: Colors.red,
-      ),
-      height: 180,
-      width: 180,
-      child: Stack(
-        //mainAxisSize: MainAxisSize.min,
-        children: [
-          Image(
-            height: 180,
-            width: 180,
-            opacity: const AlwaysStoppedAnimation(50),
-            fit: BoxFit.cover,
-            image: AssetImage(image),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Center(
-              child: Text(
-                name,
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HotelSlideItems extends StatelessWidget {
-  HotelSlideItems(
-      {super.key, required this.imageLink, required this.hotelName});
-  String imageLink;
-  String hotelName;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      width: MediaQuery.of(context).size.width,
-      child: Stack(
-        children: [
-          SizedBox(
-            width: double.maxFinite,
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: imageLink,
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Center(
-                child: CircularProgressIndicator(
-                  value: downloadProgress.progress,
-                  color: Colors.purple,
-                ),
-              ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
-          /* Image(
-              width: double.maxFinite,
-              fit: BoxFit.cover,
-              image: NetworkImage(imageLink)), */
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-              ),
-              child: Center(
-                child: Text(
-                  hotelName,
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) => Card(
+                child: Card(
+                  child: SizedBox(
+                    height: 200,
+                    child: Stack(
+                      children: [
+                        const Column(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Image(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage('assets/1.jpg'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                color: Colors.black45,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                            bottom: 5,
+                            left: 10,
+                            child: Row(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Hotel Name',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    const Row(
+                                      children: [
+                                        FaIcon(
+                                          FontAwesomeIcons.locationDot,
+                                          color: Colors.white,
+                                          size: 16,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          'Location',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      ],
+                                    ),
+                                    SmoothStarRating(
+                                        allowHalfRating: false,
+                                        onRatingChanged: (v) {
+                                          rating = v;
+                                          setState(() {});
+                                        },
+                                        starCount: 5,
+                                        rating: rating,
+                                        size: 15.0,
+                                        filledIconData: Icons.star,
+                                        halfFilledIconData: Icons.blur_on,
+                                        color: Colors.green,
+                                        //  borderColor: Colors.green,
+                                        spacing: 0.0)
+                                  ],
+                                ),
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),

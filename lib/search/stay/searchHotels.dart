@@ -35,76 +35,81 @@ class _SearchHotelsState extends State<SearchHotels> {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.all(5),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        const TextField(
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(hintText: 'Location'),
-                        ),
-                        Card(
-                          child: ListTile(
-                            title: Center(
-                              child: InkWell(
-                                onTap: () async {
-                                  var date = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime.now(),
-                                      lastDate:
-                                          DateTime(DateTime.now().year + 1));
-                                  if (date != null) {
-                                    final result =
-                                        DateFormat('yMMMMEEEEd').format(date);
-                                    setState(() {
-                                      selectedDate = result;
-                                    });
-                                  }
-                                },
-                                child: Container(
-                                  child: Text(selectedDate),
+              ExpansionTile(
+                title: const Text('Search Hotels'),
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            const TextField(
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(hintText: 'Location'),
+                            ),
+                            Card(
+                              child: ListTile(
+                                title: Center(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      var date = await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime(
+                                              DateTime.now().year + 1));
+                                      if (date != null) {
+                                        final result = DateFormat('yMMMMEEEEd')
+                                            .format(date);
+                                        setState(() {
+                                          selectedDate = result;
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      child: Text(selectedDate),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        const Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                decoration:
-                                    InputDecoration(hintText: 'No Rooms'),
-                              ),
+                            const Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                        hintText: 'No of Rooms'),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                        hintText: 'No of Persons'),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Expanded(
-                              child: TextField(
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                decoration:
-                                    InputDecoration(hintText: 'No Persons'),
+                            const Divider(),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.purple,
+                                shape: const StadiumBorder(),
                               ),
+                              onPressed: () {},
+                              child: const Text('Search'),
                             ),
                           ],
                         ),
-                        const Divider(),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.purple,
-                            shape: const StadiumBorder(),
-                          ),
-                          onPressed: () {},
-                          child: const Text('Search'),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
               Expanded(
                 child: ListView(

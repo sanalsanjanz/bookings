@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:bookmyroom/authentication.dart';
+import 'package:bookmyroom/widgets/points.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
@@ -22,6 +25,7 @@ class _HotelDetailsState extends State<HotelDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple[50],
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -29,6 +33,8 @@ class _HotelDetailsState extends State<HotelDetails> {
         automaticallyImplyLeading: false,
       ),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         children: [
           ListTile(
             title: const Text(
@@ -161,10 +167,10 @@ class _HotelDetailsState extends State<HotelDetails> {
               )
             ],
           ),
-          ExpansionTile(
-            title: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+          Card(
+            child: ExpansionTile(
+              title: Padding(
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -173,14 +179,188 @@ class _HotelDetailsState extends State<HotelDetails> {
                   ],
                 ),
               ),
+              children: [
+                Row(
+                  children: [
+                    const Expanded(child: Center(child: Text('Rooms'))),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      child: IconButton(
+                          onPressed: () {
+                            rooms > 1
+                                ? setState(() {
+                                    rooms = rooms - 1;
+                                  })
+                                : '';
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.minus)),
+                    ),
+                    Expanded(
+                        child: SizedBox(
+                      child: Center(
+                        child: Text(rooms.toInt().toString()),
+                      ),
+                    )),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              rooms = rooms + 1;
+                            });
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.plus)),
+                    ),
+                  ],
+                ),
+                const Divider(),
+                Row(
+                  children: [
+                    const Expanded(child: Center(child: Text('Adults'))),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      child: IconButton(
+                          onPressed: () {
+                            adults > 1
+                                ? setState(() {
+                                    adults = adults - 1;
+                                  })
+                                : '';
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.minus)),
+                    ),
+                    Expanded(
+                        child: SizedBox(
+                      child: Center(
+                        child: Text(adults.toInt().toString()),
+                      ),
+                    )),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              adults = adults + 1;
+                            });
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.plus)),
+                    ),
+                  ],
+                ),
+                const Divider(),
+                Row(
+                  children: [
+                    const Expanded(child: Center(child: Text('Children'))),
+                    const Expanded(
+                      child: SizedBox(),
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      child: IconButton(
+                          onPressed: () {
+                            children > 1
+                                ? setState(() {
+                                    children = children - 1;
+                                  })
+                                : '';
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.minus)),
+                    ),
+                    Expanded(
+                        child: SizedBox(
+                      child: Center(
+                        child: Text(children.toInt().toString()),
+                      ),
+                    )),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              children = children + 1;
+                            });
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.plus)),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            children: const [
-              Row(
+          ),
+          Card(
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: const Column(
                 children: [
-                  Text('Rooms'),
+                  Text(
+                    'Facilities',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  UnorderedList(
+                      ["Room service", "CCTV in common area", 'TV', 'Internet'])
                 ],
-              )
-            ],
+              ),
+            ),
+          ),
+          const Divider(),
+          const Text(
+            'Description',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Divider(),
+          const Text(
+            'Kai Heng Century Hotel offers ultimate comfort and luxury. This 4-storied hotel is a beautiful combination of traditional grandeur and modern facilities. The 255 exclusive guest rooms are furnished with a range of modern amenities such as television and internet access. International direct-dial phone and safe are also available in any of these rooms. Wake-up call facility is also available in these rooms.',
+            textAlign: TextAlign.justify,
+          ),
+          const Divider(),
+          const Text(
+            'Policies',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Divider(),
+          const Text(
+            'check in from 12pm',
+            textAlign: TextAlign.justify,
+          ),
+          const Text(
+            'check out 12 am',
+            textAlign: TextAlign.justify,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          SizedBox(
+            height: 45,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+              onPressed: () {
+                /*Note : create a global variable for checking is the user
+                 signed already,if they signed , 
+                 the page should navigate to the payment page ,
+                  otherwise to login page*/
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (builder) => const Authentication(),
+                  ),
+                );
+              },
+              child: const Text('Book Now'),
+            ),
           )
         ],
       ),

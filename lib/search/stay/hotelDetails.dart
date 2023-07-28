@@ -355,7 +355,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                   otherwise to login page*/
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (builder) => const Authentication(),
+                    builder: (builder) => Authentication(),
                   ),
                 );
               },

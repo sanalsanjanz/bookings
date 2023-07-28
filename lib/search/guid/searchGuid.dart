@@ -1,3 +1,4 @@
+import 'package:bookmyroom/search/guid/guidDetails.dart';
 import 'package:flutter/material.dart';
 
 class SearchGuid extends StatelessWidget {
@@ -22,13 +23,6 @@ class SearchGuid extends StatelessWidget {
                         const TextField(
                           decoration: InputDecoration(hintText: 'Location'),
                         ),
-                        const InkWell(
-                          child: TextField(
-                            readOnly: true,
-                            decoration: InputDecoration(hintText: "_date"),
-                          ),
-                        ),
-                        const TextField(),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.purple,
@@ -43,12 +37,27 @@ class SearchGuid extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: ListView.separated(
+                child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => const ListTile(
-                          title: Text('Guid'),
+                    itemBuilder: (context, index) => Card(
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => const GuidDetailsPage(),
+                                ),
+                              );
+                            },
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.purple[100],
+                              child: const Icon(Icons.person),
+                            ),
+
+                            title: Text('guid name ${index + 1}'),
+                            //replace with guid name
+                            subtitle: const Text('tap to know more'),
+                          ),
                         ),
-                    separatorBuilder: (context, index) => const Divider(),
                     itemCount: 50),
               ),
             ],

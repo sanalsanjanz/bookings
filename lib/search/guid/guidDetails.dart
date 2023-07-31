@@ -1,3 +1,4 @@
+import 'package:bookmyroom/payments/payment.dart';
 import 'package:flutter/material.dart';
 
 class GuidDetailsPage extends StatelessWidget {
@@ -46,7 +47,13 @@ class GuidDetailsPage extends StatelessWidget {
                   //right: MediaQuery.of(context).size.width / 2,
                   alignment: Alignment.bottomCenter,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctc) => const MakePayment(),
+                        ),
+                      );
+                    },
                     child: const Text('Book Now'),
                   ),
                 ),
